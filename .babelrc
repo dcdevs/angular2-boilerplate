@@ -1,0 +1,8 @@
+{
+	"plugins": [
+		"angular2-annotations"
+	],
+	"presets": [
+		"es2015"
+	]
+}
