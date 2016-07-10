@@ -3,6 +3,7 @@
 		"angular2-annotations"
 	],
 	"presets": [
-		"es2015"
+		"es2015",
+		"angular2"
 	]
 }

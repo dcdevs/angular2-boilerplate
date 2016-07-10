@@ -12,6 +12,10 @@
 * http-server: http-server is a simple, zero-configuration command-line http server. It is powerful enough for production usage, but it's simple and hackable enough to be used for testing, local development, and learning.
 * gulp: gulp is a toolkit that helps you automate painful or time-consuming tasks in your development workflow.
 
+## Project Dependencies
+
+* zone.js: A Zone is an execution context that persists across async tasks.
+
 ## Installation
 
 * babel: npm i -g babel
