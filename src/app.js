@@ -5,14 +5,14 @@ import 'babel-core';
 import { Component, View, provide, enableProdMode } from '@angular/core';
 import { bootstrap } from '@angular/platform-browser-dynamic';
 import { provideRouter, RouterConfig, ROUTER_DIRECTIVES } from '@angular/router';
-import {APP_BASE_HREF} from '@angular/common';
+import { APP_BASE_HREF, LocationStrategy, PathLocationStrategy, HashLocationStrategy } from '@angular/common';
 
 import { HelloComponent } from './hello.component';
 import { AboutComponent } from './about.component';
 
 const routes: RouterConfig = [
 	{ path: '', component: HelloComponent },
-	{ path: 'about', component: AboutComponent }
+	{ path: 'about/:nombre', component: AboutComponent }
 ];
 @Component({
 	selector: 'hello-app',
@@ -20,7 +20,7 @@ const routes: RouterConfig = [
 	template: `
 		<ul>
 			<li><a [routerLink]="['/']">Home</a></li>
-			<li><a [routerLink]="['about']">About</a></li>
+			<li><a [routerLink]="['/about/Cindy!']">About</a></li>
 		</ul>
 		<router-outlet></router-outlet>
 	`
@@ -31,6 +31,8 @@ class HelloApp { }
 enableProdMode();
 //start app
 bootstrap(HelloApp, [
-	provideRouter(routes)
+	provideRouter(routes),
+  provide(LocationStrategy, { useClass: HashLocationStrategy }),
+  {provide: APP_BASE_HREF, useValue: '/'}
 ])
 .catch(err => console.error(err));
