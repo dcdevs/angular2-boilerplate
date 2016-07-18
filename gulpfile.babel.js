@@ -1,6 +1,7 @@
 // Gulp Plugins
 import gulp from 'gulp';
 import gutil from 'gulp-util';
+import flatten from 'gulp-flatten';
 import source from 'vinyl-source-stream';
 import buffer from 'vinyl-buffer';
 import browserify from 'browserify';
@@ -26,19 +27,23 @@ function copy(b) {
 }
 //Gulp Tasks
 gulp.task('copy', () => {
-  return gulp.src('./src/index.html')
-    .pipe(gulp.dest('./public'))
+  gulp.src('./src/index.html')
+    .pipe(gulp.dest('./public'));
+
+  return gulp.src('./src/app/**/**/*.html')
+    .pipe(flatten())
+    .pipe(gulp.dest('./public/templates'))
     .pipe(browserSync.reload({stream:true}));
 });
 //Build
 gulp.task('build', ['copy'], () => {
-  const b = browserify('./src/app.js')
+  const b = browserify('./src/main.js')
     .transform(babelify);
   return bundle(b);
 });
 //watch
 gulp.task('watch', () => {
-  const b = browserify('./src/app.js', watchify.args)
+  const b = browserify('./src/main.js', watchify.args)
     .transform(babelify);
 
   const w = watchify(b)
