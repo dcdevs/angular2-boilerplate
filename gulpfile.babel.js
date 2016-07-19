@@ -6,7 +6,7 @@ import clean from 'gulp-clean';
 import stylus from 'gulp-stylus';
 import uglify from 'gulp-uglify';
 import minifyCss from 'gulp-clean-css';
-import autoPrefixer from 'autoprefixer-stylus';
+import nib from 'nib';
 import source from 'vinyl-source-stream';
 import buffer from 'vinyl-buffer';
 import browserify from 'browserify';
@@ -41,7 +41,7 @@ gulp.task('clean', ()=>{
 gulp.task('css',  ()=>{
   return gulp.src('./src/app.styl')
   .pipe(stylus({
-    use: [autoPrefixer({browsers: ['last 2 versions']})]
+    use: [ nib() ]
   }))
   .pipe(minifyCss())
   .pipe(gulp.dest('./public/assets/css/'));
@@ -85,10 +85,10 @@ gulp.task('server', function() {
   });
 });
 
-// gulp.task('default', ['server', 'copy', 'watch']);
+//init server,copy all html to build folder with their css
+gulp.task('init', ['server', 'copy', 'css', 'watch']);
 
 gulp.task('default', ['clean'], ()=>{
-  gulp.start('build');
-  gulp.start('server');
-  gulp.start('watch');
+  gulp.start('init');
 });
+
