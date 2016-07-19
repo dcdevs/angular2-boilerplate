@@ -63,12 +63,12 @@ $ npm run build
 ├── src                        <- source code of the application
 │   └── app
 │       │── about
-│       │   │── about.css
+│       │   │── about.styl
 │       │   │── about.html
 │       │   │── about.js
 │       │   │── index.js
 │       │── home
-│       │   │── home.css
+│       │   │── home.styl
 │       │   │── home.html
 │       │   │── home.js
 │       │   │── index.js
@@ -82,7 +82,7 @@ $ npm run build
 │       │   │── index.js
 │       │   ├── nav
 │       │   │   ├── index.ts
-│       │   │   ├── navbar.component.css
+│       │   │   ├── navbar.component.styl
 │       │   │   ├── navbar.component.html
 │       │   │   └── navbar.component.ts
 │       ├── assets
@@ -91,6 +91,7 @@ $ npm run build
 │       └── css
 │           └── main.css
 │   │── main.js
+│   │── app.styl
 │   └── index.html
 ```
 
