@@ -2,6 +2,11 @@
 import gulp from 'gulp';
 import gutil from 'gulp-util';
 import flatten from 'gulp-flatten';
+import clean from 'gulp-clean';
+import stylus from 'gulp-stylus';
+import uglify from 'gulp-uglify';
+import minifyCss from 'gulp-clean-css';
+import autoPrefixer from 'autoprefixer-stylus';
 import source from 'vinyl-source-stream';
 import buffer from 'vinyl-buffer';
 import browserify from 'browserify';
@@ -15,6 +20,7 @@ function bundle(b) {
     .on('error', (err) => console.log(err))
     .pipe(source('app.js'))
     .pipe(buffer())
+    .pipe(uglify({mangle: false}))
     .pipe(gulp.dest('./public'))
     .pipe(browserSync.reload({stream:true}));
 }
@@ -25,6 +31,21 @@ function copy(b) {
     .pipe(gulp.dest('./public'))
     .pipe(browserSync.reload({stream:true}));
 }
+
+//Gulp Clean
+gulp.task('clean', ()=>{
+  return gulp.src('public/', {read: false})
+  .pipe(clean());
+});
+//Buid css
+gulp.task('css',  ()=>{
+  return gulp.src('./src/app.styl')
+  .pipe(stylus({
+    use: [autoPrefixer({browsers: ['last 2 versions']})]
+  }))
+  .pipe(minifyCss())
+  .pipe(gulp.dest('./public/assets/css/'));
+});
 //Gulp Tasks
 gulp.task('copy', () => {
   gulp.src('./src/index.html')
@@ -36,7 +57,7 @@ gulp.task('copy', () => {
     .pipe(browserSync.reload({stream:true}));
 });
 //Build
-gulp.task('build', ['copy'], () => {
+gulp.task('build', ['copy','css'], () => {
   const b = browserify('./src/main.js')
     .transform(babelify);
   return bundle(b);
@@ -51,7 +72,7 @@ gulp.task('watch', () => {
     .on('log', gutil.log);
 
   gulp.watch(['src/**/**/*.html'], ['copy']);
-
+  gulp.watch(['src/**/**/*.styl'], ['css']);
   return bundle(w);
 });
 
@@ -64,4 +85,10 @@ gulp.task('server', function() {
   });
 });
 
-gulp.task('default', ['server', 'copy', 'watch']);
+// gulp.task('default', ['server', 'copy', 'watch']);
+
+gulp.task('default', ['clean'], ()=>{
+  gulp.start('build');
+  gulp.start('server');
+  gulp.start('watch');
+});
