@@ -11,6 +11,6 @@ import { NavbarComponent } from './shared';
   templateUrl: 'templates/app.html'
 })
 
-export class App{
+export class AppComponent{
   constructor(){}
 }
