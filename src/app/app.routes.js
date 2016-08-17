@@ -1,12 +1,11 @@
-import { provideRouter, RouterConfig } from '@angular/router';
+import { Routes, RouterModule } from '@angular/router';
 
 import { HomeRoutes } from './home';
 import { AboutRoutes } from './about';
 
-const routes: RouterConfig = [
+const routes: Routes = [
   HomeRoutes,
   AboutRoutes
 ];
-export const APP_ROUTER_PROVIDERS = [
-  provideRouter(routes)
-];
+
+export const routing = RouterModule.forRoot(routes, { useHash: true });
