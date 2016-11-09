@@ -7,6 +7,7 @@ import { HomeComponent }    from './home';
 import { AppComponent }     from './app';
 
 import { routing }          from './app.routes';
+import { NavbarComponent } from './shared';
 
 @NgModule({
   imports: [
@@ -17,7 +18,8 @@ import { routing }          from './app.routes';
   declarations: [
     AppComponent,
     AboutComponent,
-    HomeComponent
+    HomeComponent,
+    NavbarComponent
   ],
   bootstrap: [ AppComponent ]
 })
